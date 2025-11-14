@@ -11,25 +11,28 @@
                 &larr;
             </flux:button>
 
-            <flux:input.group>
+            <flux:button wire:click="nextMonth">
+                &rarr;
+            </flux:button>
+
+            <flux:field>
                 <flux:select wire:model.live="month">
                     @foreach(range(1, 12) as $m)
                         <option value="{{ $m }}">{{ \Carbon\Carbon::create()->month($m)->format('F') }}</option>
                     @endforeach
                 </flux:select>
+            </flux:field>
 
+            <flux:field>
                 <flux:select wire:model.live="year">
                     @foreach(range($year - 50, $year + 50) as $y)
                         <option value="{{ $y }}">{{ $y }}</option>
                     @endforeach
                 </flux:select>
-            </flux:input.group>
-
-            <flux:button wire:click="nextMonth">
-                &rarr;
-            </flux:button>
+            </flux:field>
 
             @livewire('create-event-form')
+            @livewire('edit-event-form')
         </div>
     </div>
 
@@ -48,11 +51,14 @@
     <div class="grid grid-cols-7 flex-1 auto-rows-fr">
         @foreach($days as $i => $day)
 
-            <div class="p-2 flex flex-col items-start text-sm gap-1 rounded-lg opacity-20
-                {{ $day['current'] ? 'hover:bg-zinc-500/10 opacity-100' : 'text-gray-400' }}
-                {{ $day['current'] && $day['day'] == now()->day && $month == now()->month && $year == now()->year
-                    ? 'bg-zinc-500/10 font-extrabold'
-                    : '' }}"
+            <flux:modal.trigger
+                name="create-event"
+                wire:click="$dispatch('setStartDateTime', { dateTime: '{{ $year }}-{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}-{{ str_pad($day['day'], 2, '0', STR_PAD_LEFT) }} 09:00'})"
+                class="p-2 flex flex-col items-start text-sm gap-1 rounded-lg opacity-20 transition
+                    {{ $day['current'] ? 'hover:bg-zinc-500/10 opacity-100' : 'text-gray-400' }}
+                    {{ $day['current'] && $day['day'] == now()->day && $month == now()->month && $year == now()->year
+                        ? 'bg-zinc-500/5 font-extrabold'
+                        : '' }}"
             >
                 <flux:text>
                     {{ $day['day'] }}
@@ -87,7 +93,10 @@
                             $cls = $eventColors[$event->color] ?? ['bg' => 'bg-gray-100', 'text' => 'text-gray-700'];
                         @endphp
 
-                        <div class="w-full text-left text-xs font-bold rounded px-1 py-0.5 truncate {{ $cls['bg'] }} flex justify-between">
+                        <div
+                            name="edit-event"
+                            wire:click.stop="$dispatch('openEditEventModal', { id: {{ $event->id }} })"
+                            class="z-10 w-full text-left text-xs font-bold rounded px-1 py-0.5 truncate {{ $cls['bg'] }} flex justify-between">
                             <flux:text class="{{ $cls['text'] }}" size="sm">
                                 {{ $event->name }}
                             </flux:text>
@@ -97,7 +106,7 @@
                         </div>
                     @endforeach
                 @endif
-            </div>
+            </flux:modal.trigger>
         @endforeach
     </div>
 </div>

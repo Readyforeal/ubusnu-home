@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Flux\Flux;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
@@ -36,6 +37,13 @@ class CreateEventForm extends Component
             'color' => $this->color,
         ]);
 
+        $this->dispatch('created-event');
         Flux::modals()->close();
+    }
+
+    #[On('setStartDateTime')]
+    public function setStartDateTime($dateTime)
+    {
+        $this->startDateTime = $dateTime;
     }
 }

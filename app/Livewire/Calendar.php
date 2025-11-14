@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Event;
 use Carbon\Carbon;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Calendar extends Component
@@ -13,6 +14,12 @@ class Calendar extends Component
     public $days = [];
 
     public $eventsByDay = [];
+
+    protected $listeners = [
+        'created-event' => '$refresh',
+        'updated-event' => '$refresh',
+        'deleted-event' => '$refresh'
+    ];
 
     public function mount()
     {
@@ -96,7 +103,7 @@ class Calendar extends Component
         $monthEnd   = Carbon::create($this->year, $this->month, 1)->endOfMonth()->endOfDay();
 
         $events = \App\Models\Event::whereBetween('start_date_time', [$monthStart, $monthEnd])
-            ->orderBy('start_date_time')
+            ->orderBy('start_date_time', 'asc')
             ->get();
 
         $this->eventsByDay = [];
@@ -107,9 +114,9 @@ class Calendar extends Component
         }
     }
 
-
     public function render()
     {
         return view('livewire.calendar');
     }
+
 }

@@ -1,12 +1,8 @@
 <div>
-    <flux:modal.trigger name="create-event">
-        <flux:button icon="calendar-plus" variant="primary" wire:click="$set('startDateTime', '')">Create event</flux:button>
-    </flux:modal.trigger>
-
-    <flux:modal name="create-event" class="md:w-96">
+    <flux:modal name="edit-event" class="md:w-96">
         <div class="space-y-3">
             <div>
-                <flux:heading size="lg">Create event</flux:heading>
+                <flux:heading size="lg">Edit event</flux:heading>
             </div>
             <flux:input placeholder="Event name" wire:model="name" />
             <flux:input placeholder="Event location" wire:model="location" />
@@ -50,8 +46,9 @@
                 @endforeach
             </div>
 
-            <div class="flex">
-                <flux:button wire:click="store" variant="primary" class="w-full" icon="calendar-plus">Create</flux:button>
+            <div class="flex gap-1">
+                <flux:button wire:click="delete" variant="subtle" class="w-1/2" icon="trash">Delete</flux:button>
+                <flux:button wire:click="update" variant="primary" class="w-1/2" icon="save">Save</flux:button>
             </div>
         </div>
     </flux:modal>
