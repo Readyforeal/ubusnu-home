@@ -30,10 +30,9 @@
                     @endforeach
                 </flux:select>
             </flux:field>
-
-            @livewire('create-event-form')
-            @livewire('edit-event-form')
         </div>
+        @livewire('create-event-form')
+        @livewire('edit-event-form')
     </div>
 
     <!-- Labels -->

@@ -1,4 +1,4 @@
-<div>
+
     <flux:modal name="edit-event" class="md:w-96">
         <div class="space-y-3">
             <div>
@@ -52,4 +52,3 @@
             </div>
         </div>
     </flux:modal>
-</div>
