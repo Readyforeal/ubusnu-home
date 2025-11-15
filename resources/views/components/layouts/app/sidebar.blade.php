@@ -4,7 +4,7 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-white dark:bg-black">
-        <flux:sidebar sticky collapsible class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-950">
+        <flux:sidebar sticky collapsible class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-950">
             {{-- <flux:sidebar.toggle class="hidden" icon="x-mark" /> --}}
             <flux:sidebar.header>
                 <flux:sidebar.brand

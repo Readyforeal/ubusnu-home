@@ -1,17 +1,17 @@
-<div class="w-full h-[calc(100vh-104px)] md:h-[calc(100vh-64px)] rounded-xl flex flex-col">
+<div class="w-full h-[calc(100vh-104px)] md:h-[calc(100vh-90px)] rounded-xl flex flex-col">
 
     <!-- Header -->
-    <div class="md:flex items-center justify-between gap-2 mb-4">
-        <flux:heading size="xl">
+    <div class="md:flex items-start justify-between gap-2 mb-4">
+        <flux:heading>
             {{ \Carbon\Carbon::create($year, $month)->format('F Y') }}
         </flux:heading>
 
         <div class="flex items-center gap-1 mt-3 md:mt-0">
-            <flux:button wire:click="prevMonth">
+            <flux:button wire:click="prevMonth" variant="filled">
                 &larr;
             </flux:button>
 
-            <flux:button wire:click="nextMonth">
+            <flux:button wire:click="nextMonth" variant="filled">
                 &rarr;
             </flux:button>
 
@@ -30,9 +30,8 @@
                     @endforeach
                 </flux:select>
             </flux:field>
+            @livewire('create-event-form')
         </div>
-        @livewire('create-event-form')
-        @livewire('edit-event-form')
     </div>
 
     <!-- Labels -->
@@ -56,7 +55,7 @@
                 class="p-2 flex flex-col items-start text-sm gap-1 rounded-lg opacity-20 transition
                     {{ $day['current'] ? 'hover:bg-zinc-500/10 opacity-100' : 'text-gray-400' }}
                     {{ $day['current'] && $day['day'] == now()->day && $month == now()->month && $year == now()->year
-                        ? 'bg-zinc-500/5 font-extrabold'
+                        ? 'bg-zinc-500/5 border dark:border-zinc-700 font-extrabold'
                         : '' }}"
             >
                 <flux:text>
@@ -108,4 +107,5 @@
             </flux:modal.trigger>
         @endforeach
     </div>
+    @livewire('edit-event-form')
 </div>

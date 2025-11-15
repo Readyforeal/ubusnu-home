@@ -1,6 +1,6 @@
 <div>
     <flux:modal.trigger name="create-event">
-        <flux:button icon="calendar-plus" variant="primary" wire:click="$set('startDateTime', '')">Create event</flux:button>
+        <flux:button icon="calendar-plus" variant="filled" wire:click="$set('startDateTime', '')">Create event</flux:button>
     </flux:modal.trigger>
 
     <flux:modal name="create-event" class="md:w-96">
