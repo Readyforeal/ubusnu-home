@@ -11,7 +11,8 @@ use Livewire\Component;
 
 class EditEventForm extends Component
 {
-    public $event;
+    public $event = null;
+    public $eventId = null;
 
     #[Validate('required')]
     public $name;
@@ -26,24 +27,23 @@ class EditEventForm extends Component
         return view('livewire.edit-event-form');
     }
 
-    #[On('openEditEventModal')]
-    public function OpenEditEventModal($id)
+    #[On('editing-event')]
+    public function editingEvent($id)
     {
-        $this->event = Event::find($id);
+        $event = Event::find($id);
+        $this->eventId = $event->id;
 
-        $this->name = $this->event->name;
-        $this->location = $this->event->location;
-        $this->startDateTime = Carbon::parse($this->event->start_date_time)->format('Y-m-d\TH:i');
-        $this->endDateTime = Carbon::parse($this->event->end_date_time)->format('Y-m-d\TH:i');
-        $this->notes = $this->event->notes;
-        $this->color = $this->event->color;
-
-        $this->modal('edit-event')->show();
+        $this->name = $event->name;
+        $this->location = $event->location;
+        $this->startDateTime = Carbon::parse($event->start_date_time)->format('Y-m-d\TH:i');
+        $this->endDateTime = Carbon::parse($event->end_date_time)->format('Y-m-d\TH:i');
+        $this->notes = $event->notes;
+        $this->color = $event->color;
     }
 
     public function update()
     {
-        $this->event->update([
+        Event::find($this->eventId)->update([
             'name' => $this->name,
             'location' => $this->location,
             'start_date_time' => $this->startDateTime,
@@ -54,13 +54,14 @@ class EditEventForm extends Component
 
         $this->dispatch('updated-event');
         $this->modal('edit-event')->close();
+        $this->reset();
     }
 
     public function delete()
     {
-        $this->event->delete();
-        $this->event = null;
+        Event::find($this->eventId)->delete();
         $this->modal('edit-event')->close();
+        $this->reset();
         $this->dispatch('deleted-event');
     }
 }

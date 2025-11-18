@@ -58,7 +58,7 @@ class Calendar extends Component
         $this->generateDays();
     }
 
-    private function generateDays()
+    public function generateDays()
     {
         $start = Carbon::create($this->year, $this->month, 1);
         $startDay = $start->dayOfWeek; // Sunday = 0
@@ -97,7 +97,7 @@ class Calendar extends Component
         $this->loadEvents();
     }
 
-    private function loadEvents()
+    public function loadEvents()
     {
         $monthStart = Carbon::create($this->year, $this->month, 1)->startOfDay();
         $monthEnd   = Carbon::create($this->year, $this->month, 1)->endOfMonth()->endOfDay();

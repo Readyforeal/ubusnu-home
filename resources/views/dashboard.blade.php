@@ -1,9 +1,10 @@
 <x-layouts.app :title="__('Dashboard')">
-    <div class="grid grid-cols-3 divide-x dark:divide-zinc-800 border dark:border-zinc-800 rounded-xl">
-        <div class="col-span-2 p-3">
+    <div class="grid grid-cols-4 divide-x dark:divide-zinc-800">
+        <div class="col-span-3">
             @livewire('calendar')
+            @livewire('edit-event-form')
         </div>
-        <div class="col-span-1 p-3">
+        <div class="col-span-1">
             <flux:heading>Shopping List</flux:heading>
         </div>
     </div>

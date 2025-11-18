@@ -10,11 +10,11 @@ use Livewire\Component;
 class CreateEventForm extends Component
 {
     #[Validate('required')]
-    public $name;
-    public $location;
-    public $startDateTime;
-    public $endDateTime;
-    public $notes;
+    public $name = '';
+    public $location = '';
+    public $startDateTime = '';
+    public $endDateTime = '';
+    public $notes = '';
     public $color = 'zinc';
 
     public function render()
@@ -37,8 +37,8 @@ class CreateEventForm extends Component
             'color' => $this->color,
         ]);
 
-        $this->dispatch('created-event');
         Flux::modals()->close();
+        $this->dispatch('created-event');
     }
 
     #[On('setStartDateTime')]
