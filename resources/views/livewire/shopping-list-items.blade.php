@@ -1,4 +1,4 @@
-<div class="p-3 border-l-2 border-indigo-500 bg-gradient-to-r from-indigo-500/10 to-indigo-500/5 h-1/2">
+<div class="p-3 h-1/2">
     <div class="flex justify-between">
         <flux:heading class="font-black" size="lg">Shopping List</flux:heading>
 
@@ -6,13 +6,15 @@
             <flux:button size="xs" variant="ghost" :disabled="$selectedItems == []" wire:click="delete" icon="trash"></flux:button>
 
             <flux:modal.trigger name="create-item">
-                <flux:button size="xs" variant="filled" icon="plus">Add Item</flux:button>
+                <flux:button size="xs" variant="filled" icon="plus"
+                     wire:click="$dispatch('keyboard-mount', { target: '.shopping-list-keyboard' })"
+                >Add Item</flux:button>
             </flux:modal.trigger>
         </div>
     </div>
 
     <div class="mt-3">
-        <flux:checkbox.group wire:model.live="selectedItems">
+        <flux:checkbox.group wire:model.live="selectedItems" class="border-l-2 border-orange-500 pl-3">
         @forelse($shoppingListItems as $item)
                 <flux:checkbox
                     value="{{ $item->id }}"
@@ -37,7 +39,7 @@
 
             @vite(['resources/js/keyboard.js'])
             <div wire:ignore>
-                <div class="simple-keyboard"></div>
+                <div class="shopping-list-keyboard simple-keyboard"></div>
             </div>
         </div>
     </flux:modal>

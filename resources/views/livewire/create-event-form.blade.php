@@ -1,18 +1,22 @@
 <div>
     <flux:modal.trigger name="create-event">
-        <flux:button icon="calendar-plus" variant="filled" wire:click="$set('startDateTime', '')">Create event</flux:button>
+        <flux:button icon="calendar-plus" variant="filled" wire:click="$set('startDateTime', ''); $dispatch('keyboard-mount', { target: '.event-keyboard' });">Create event</flux:button>
     </flux:modal.trigger>
 
-    <flux:modal name="create-event" class="w-lg">
+    <flux:modal name="create-event" class="w-lg" >
         <div class="space-y-3">
             <div>
                 <flux:heading size="lg">Create event</flux:heading>
             </div>
-            <flux:input placeholder="Event name" wire:model="name" />
-            <flux:input placeholder="Event location" wire:model="location" />
-            <flux:input type="datetime-local" wire:model="startDateTime" />
-            <flux:input type="datetime-local" wire:model="endDateTime" />
-            <flux:input placeholder="Event notes" wire:model="notes" />
+            <flux:input placeholder="Event name" wire:model="name" data-keyboard-target />
+            <flux:input placeholder="Event location" wire:model="location" data-keyboard-target />
+
+            <flux:input.group>
+                <flux:input type="datetime-local" wire:model="startDateTime" data-keyboard-target />
+                <flux:input type="datetime-local" wire:model="endDateTime" data-keyboard-target />
+            </flux:input.group>
+
+            <flux:input placeholder="Event notes" wire:model="notes" data-keyboard-target />
 
             @php
                 $colors = [
@@ -56,7 +60,7 @@
 
             @vite(['resources/js/keyboard.js'])
             <div wire:ignore>
-                <div class="simple-keyboard"></div>
+                <div class="event-keyboard simple-keyboard"></div>
             </div>
         </div>
     </flux:modal>

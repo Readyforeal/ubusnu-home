@@ -81,7 +81,14 @@ function handleKeyPress(button) {
 
 // --- Event logic goes here ---
 document.addEventListener("keyboard-mount", (e) => {
-    const container = e.detail.modal.querySelector(".simple-keyboard");
+    const selector = e.detail.target;
+    const container = document.querySelector(selector);
+
+    if (!container) {
+        console.warn("Keyboard target not found:", selector);
+        return;
+    }
+
     createKeyboard(container);
 });
 

@@ -1,4 +1,4 @@
-<div class="p-3 border-l-2 border-red-500 bg-gradient-to-r from-red-500/10 to-red-500/5 h-1/2">
+<div class="p-3 h-1/2">
     <div class="flex justify-between">
         <flux:heading class="font-black" size="lg">Tasks</flux:heading>
 
@@ -6,13 +6,21 @@
             <flux:button size="xs" variant="ghost" :disabled="$selectedTasks == []" wire:click="delete" icon="trash"></flux:button>
 
             <flux:modal.trigger name="create-task">
-                <flux:button size="xs" variant="filled" icon="plus">Add Task</flux:button>
+                <flux:button
+                    size="xs"
+                    variant="filled"
+                    icon="plus"
+                    wire:click="$dispatch('keyboard-mount', { target: '.tasks-keyboard' })"
+                >
+                    Add Task
+                </flux:button>
             </flux:modal.trigger>
+
         </div>
     </div>
 
     <div class="mt-3">
-        <flux:checkbox.group wire:model.live="selectedTasks">
+        <flux:checkbox.group wire:model.live="selectedTasks" class="border-l-2 border-blue-500 pl-3">
             @forelse($tasks as $task)
                 <flux:checkbox
                     value="{{ $task->id }}"
@@ -36,8 +44,12 @@
 
             @vite(['resources/js/keyboard.js'])
             <div wire:ignore>
-                <div class="simple-keyboard"></div>
+                <div class="tasks-keyboard simple-keyboard"></div>
             </div>
         </div>
     </flux:modal>
+
+    <style>
+
+    </style>
 </div>

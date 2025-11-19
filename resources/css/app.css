@@ -32,7 +32,7 @@
     .dark {
         --color-accent: var(--color-white);
         --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+        --color-accent-foreground: var(--color-neutral-900);
     }
 }
 
@@ -64,3 +64,32 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
+
+.hg-theme-default {
+    background: rgba(0,0,0,0) !important;
+    padding: 0px !important;
+    border-radius: 12px !important;
+}
+
+.hg-theme-default .hg-row {
+    margin-bottom: 0px !important;
+}
+
+.hg-theme-default .hg-button {
+    background: rgba(0,0,0,0.3) !important;
+    color: var(--color-zinc-300) !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+    padding: 6px !important;
+    margin: 2px !important;
+    border: none !important;
+}
+
+.hg-theme-default .hg-button:active {
+    background: var(--color-zinc-900) !important;
+}
+
+.hg-theme-default .hg-button.hg-functionBtn {
+    background: rgba(0,0,0,0.6) !important;
+    color: var(--color-zinc-300) !important;
+}

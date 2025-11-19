@@ -1,4 +1,4 @@
-<div class="w-full h-[calc(100vh-104px)] md:h-[calc(100vh)] rounded-xl flex flex-col p-3">
+<div class="w-full h-full flex flex-col p-3 border-l-2 border-pink-500">
 
     <!-- Header -->
     <div class="md:flex items-start justify-between gap-2 mb-4">
@@ -7,12 +7,10 @@
         </flux:heading>
 
         <div class="flex items-center gap-2 mt-3 md:mt-0">
-            <flux:button wire:click="prevMonth" variant="filled">
-                &larr;
+            <flux:button icon="arrow-left" wire:click="prevMonth" variant="filled">
             </flux:button>
 
-            <flux:button wire:click="nextMonth" variant="filled">
-                &rarr;
+            <flux:button icon="arrow-right" wire:click="nextMonth" variant="filled">
             </flux:button>
 
             <flux:field>
@@ -56,7 +54,7 @@
                 class="p-2 flex flex-col items-start text-sm gap-1 opacity-20 transition
                     {{ $day['current'] ? 'hover:bg-zinc-500/10 opacity-100' : 'text-gray-400' }}
                     {{ $day['current'] && $day['day'] == now()->day && $month == now()->month && $year == now()->year
-                        ? 'border-l-2 border-pink-500 bg-gradient-to-r from-pink-500/10 to-pink-500/5'
+                        ? 'border-l-2 border-pink-500 bg-pink-500/5'
                         : '' }}"
             >
                 <div class="w-full flex justify-between">
