@@ -2,7 +2,7 @@
 
     <!-- Header -->
     <div class="md:flex items-start justify-between gap-2 mb-4">
-        <flux:heading size="xl">
+        <flux:heading class="font-black" size="lg">
             {{ \Carbon\Carbon::create($year, $month)->format('F Y') }}
         </flux:heading>
 
@@ -31,6 +31,7 @@
                 </flux:select>
             </flux:field>
             @livewire('create-event-form')
+            @livewire('edit-event-form')
         </div>
     </div>
 
@@ -50,13 +51,12 @@
         @foreach($days as $i => $day)
 
             <div
-                wire:key="{{ $day['day'] }}"
                 {{-- name="create-event" --}}
                 {{-- wire:click="$dispatch('setStartDateTime', { dateTime: '{{ $year }}-{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}-{{ str_pad($day['day'], 2, '0', STR_PAD_LEFT) }} 09:00'})" --}}
-                class="p-2 flex flex-col items-start text-sm gap-1 rounded-lg opacity-20 transition
+                class="p-2 flex flex-col items-start text-sm gap-1 opacity-20 transition
                     {{ $day['current'] ? 'hover:bg-zinc-500/10 opacity-100' : 'text-gray-400' }}
                     {{ $day['current'] && $day['day'] == now()->day && $month == now()->month && $year == now()->year
-                        ? 'bg-zinc-500/5 border dark:border-zinc-700'
+                        ? 'border-l-2 border-pink-500 bg-gradient-to-r from-pink-500/10 to-pink-500/5'
                         : '' }}"
             >
                 <div class="w-full flex justify-between">
@@ -72,7 +72,7 @@
 
                 @if ($day['current'] && isset($eventsByDay[$day['day']]))
                     @foreach ($eventsByDay[$day['day']] as $event)
-                        @livewire('calendar-event', ['eventId' => $event->id], key('event-' . $event->id))
+                        @livewire('calendar-event', ['eventId' => $event['id']], key('event-' . $event['id'] . '-' . $event['updated_at']))
                     @endforeach
                 @endif
             </div>

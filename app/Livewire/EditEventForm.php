@@ -36,7 +36,7 @@ class EditEventForm extends Component
         $this->name = $event->name;
         $this->location = $event->location;
         $this->startDateTime = Carbon::parse($event->start_date_time)->format('Y-m-d\TH:i');
-        $this->endDateTime = Carbon::parse($event->end_date_time)->format('Y-m-d\TH:i');
+        $this->endDateTime = $event->end_date_time ? Carbon::parse($event->end_date_time)->format('Y-m-d\TH:i') : null;
         $this->notes = $event->notes;
         $this->color = $event->color;
     }
@@ -52,9 +52,9 @@ class EditEventForm extends Component
             'color' => $this->color,
         ]);
 
-        $this->dispatch('updated-event');
         $this->modal('edit-event')->close();
         $this->reset();
+        $this->dispatch('updated-event');
     }
 
     public function delete()

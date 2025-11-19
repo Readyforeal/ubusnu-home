@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Event;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -14,12 +15,6 @@ class Calendar extends Component
     public $days = [];
 
     public $eventsByDay = [];
-
-    protected $listeners = [
-        'created-event' => '$refresh',
-        'updated-event' => '$refresh',
-        'deleted-event' => '$refresh'
-    ];
 
     public function mount()
     {
@@ -102,17 +97,37 @@ class Calendar extends Component
         $monthStart = Carbon::create($this->year, $this->month, 1)->startOfDay();
         $monthEnd   = Carbon::create($this->year, $this->month, 1)->endOfMonth()->endOfDay();
 
-        $events = \App\Models\Event::whereBetween('start_date_time', [$monthStart, $monthEnd])
+        $grouped = [];
+
+        $events = Event::whereBetween('start_date_time', [$monthStart, $monthEnd])
             ->orderBy('start_date_time', 'asc')
             ->get();
 
         $this->eventsByDay = [];
 
         foreach ($events as $event) {
-            $day = $event->start_date_time->day; // Carbon::day works fine now
-            $this->eventsByDay[$day][] = $event;
+            $day = $event->start_date_time->day;
+            $grouped[$day][] = $event->toArray();
         }
+
+        if($grouped) {
+            foreach ($grouped as $day => $events) {
+                $grouped[$day] = array_values($events);
+            }
+        }
+
+        $this->eventsByDay = $grouped;
     }
+
+    #[On('created-event')]
+    #[On('updated-event')]
+    #[On('deleted-event')]
+    public function refreshCalendar()
+    {
+        $this->loadEvents();
+        $this->generateDays();
+    }
+
 
     public function render()
     {

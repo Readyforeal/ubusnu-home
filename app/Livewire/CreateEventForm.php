@@ -12,8 +12,8 @@ class CreateEventForm extends Component
     #[Validate('required')]
     public $name = '';
     public $location = '';
-    public $startDateTime = '';
-    public $endDateTime = '';
+    public $startDateTime = null;
+    public $endDateTime = null;
     public $notes = '';
     public $color = 'zinc';
 
@@ -32,7 +32,7 @@ class CreateEventForm extends Component
             'name' => $this->name,
             'location' => $this->location,
             'start_date_time' => $this->startDateTime,
-            'end_date_time' => $this->endDateTime,
+            'end_date_time' => $this->endDateTime ?: null,
             'notes' => $this->notes,
             'color' => $this->color,
         ]);
