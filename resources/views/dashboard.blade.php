@@ -1,5 +1,5 @@
 <x-layouts.app :title="__('Dashboard')">
-    <div class="flex h-full border dark:border-zinc-800">
+    <div class="flex h-full border-t border-r border-b dark:border-zinc-800">
         <div class="w-3/4 flex-1">
             @livewire('calendar')
         </div>

@@ -3,7 +3,7 @@
         <flux:heading class="font-black" size="lg">Tasks</flux:heading>
 
         <div class="flex gap-2">
-            <flux:button size="xs" variant="ghost" :disabled="$selectedTasks == []" wire:click="delete" icon="trash"></flux:button>
+            <flux:button size="xs" variant="ghost" :hidden="$selectedTasks == []" wire:click="delete" icon="trash"></flux:button>
 
             <flux:modal.trigger name="create-task">
                 <flux:button
@@ -50,6 +50,8 @@
     </flux:modal>
 
     <style>
-
+        [data-flux-modal] {
+            @apply dark:bg-zinc-900;
+        }
     </style>
 </div>

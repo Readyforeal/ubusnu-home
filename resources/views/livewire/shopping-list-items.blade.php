@@ -3,7 +3,7 @@
         <flux:heading class="font-black" size="lg">Shopping List</flux:heading>
 
         <div class="flex gap-2">
-            <flux:button size="xs" variant="ghost" :disabled="$selectedItems == []" wire:click="delete" icon="trash"></flux:button>
+            <flux:button size="xs" variant="ghost" :hidden="$selectedItems == []" wire:click="delete" icon="trash"></flux:button>
 
             <flux:modal.trigger name="create-item">
                 <flux:button size="xs" variant="filled" icon="plus"
