@@ -62,7 +62,7 @@
                         {{ $day['day'] }}
                     </flux:text>
 
-                    <flux:modal.trigger name="create-event" wire:click="$dispatch('setStartDateTime', { dateTime: '{{ $year }}-{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}-{{ str_pad($day['day'], 2, '0', STR_PAD_LEFT) }} 09:00'})">
+                    <flux:modal.trigger name="create-event" wire:click="$dispatch('setStartDateTime', { dateTime: '{{ $year }}-{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}-{{ str_pad($day['day'], 2, '0', STR_PAD_LEFT) }} 09:00'}); $dispatch('keyboard-mount', { target: '.event-keyboard' });">
                         <flux:icon.plus variant="micro" class="opacity-20 hover:opacity-100 transition"/>
                     </flux:modal.trigger>
                 </div>
